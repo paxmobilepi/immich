@@ -303,7 +303,7 @@ export class PersonService {
     const assetPagination = usePagination(JOBS_ASSET_PAGINATION_SIZE, (pagination) => {
       return force
         ? this.assetRepository.getAll(pagination, {
-            orderDirection: 'DESC',
+            orderDirection: 'desc',
             withFaces: true,
             withArchived: true,
             isVisible: true,
@@ -326,13 +326,7 @@ export class PersonService {
       return JobStatus.SKIPPED;
     }
 
-    const relations = {
-      exifInfo: true,
-      faces: {
-        person: false,
-      },
-      files: true,
-    };
+    const relations = { exifInfo: true, faces: { person: false }, files: true };
     const [asset] = await this.assetRepository.getByIds([id], relations);
     const { previewFile } = getAssetFiles(asset.files);
     if (!asset || !previewFile || asset.faces?.length > 0) {
