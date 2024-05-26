@@ -96,13 +96,9 @@ export class MediaService {
       const jobs: JobItem[] = [];
 
       for (const asset of assets) {
-        if (!asset.previewPath || !asset.thumbnailPath || force) {
+        if (!asset.previewPath || !asset.thumbnailPath || !asset.thumbhash || force) {
           jobs.push({ name: JobName.GENERATE_THUMBNAILS, data: { id: asset.id } });
           continue;
-        }
-
-        if (!asset.thumbhash) {
-          jobs.push({ name: JobName.GENERATE_THUMBHASH, data: { id: asset.id } });
         }
       }
 
@@ -231,7 +227,8 @@ export class MediaService {
     try {
       const useExtracted = didExtract && (await this.shouldUseExtractedImage(extractedPath, image.previewSize));
       const outputPath = useExtracted ? extractedPath : asset.originalPath;
-      await this.mediaRepository.generateThumbnails(outputPath, imageOptions);
+      const thumbhash = await this.mediaRepository.generateThumbnails(outputPath, imageOptions);
+      await this.assetRepository.update({ id: asset.id, thumbhash: thumbhash! });
     } finally {
       if (didExtract) {
         await this.storageRepository.unlink(extractedPath);
@@ -239,10 +236,7 @@ export class MediaService {
     }
 
     this.logger.log(
-      `Successfully generated ${image.previewFormat.toUpperCase()} ${asset.type.toLowerCase()} ${AssetPathType.PREVIEW} for asset ${asset.id}`,
-    );
-    this.logger.log(
-      `Successfully generated ${image.thumbnailFormat.toUpperCase()} ${asset.type.toLowerCase()} ${AssetPathType.THUMBNAIL} for asset ${asset.id}`,
+      `Successfully generated thumbhash, ${image.previewFormat.toUpperCase()} preview and ${image.thumbnailFormat.toUpperCase()} thumbnail for asset ${asset.id}`,
     );
 
     return imageOptions;
@@ -266,6 +260,7 @@ export class MediaService {
         quality: image.quality,
         size: image.thumbnailSize,
       },
+      thumbhash: true,
     };
   }
 
@@ -290,26 +285,6 @@ export class MediaService {
       `Successfully generated ${format.toUpperCase()} ${asset.type.toLowerCase()} ${type} for asset ${asset.id}`,
     );
     return path;
-  }
-
-  async handleGenerateThumbhash({ id }: IEntityJob): Promise<JobStatus> {
-    const [asset] = await this.assetRepository.getByIds([id]);
-    if (!asset) {
-      return JobStatus.FAILED;
-    }
-
-    if (!asset.isVisible) {
-      return JobStatus.SKIPPED;
-    }
-
-    if (!asset.previewPath) {
-      return JobStatus.FAILED;
-    }
-
-    const thumbhash = await this.mediaRepository.generateThumbhash(asset.previewPath);
-    await this.assetRepository.update({ id: asset.id, thumbhash });
-
-    return JobStatus.SUCCESS;
   }
 
   async handleQueueVideoConversion(job: IBaseJob): Promise<JobStatus> {

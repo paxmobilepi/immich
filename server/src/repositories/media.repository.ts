@@ -45,19 +45,41 @@ export class MediaRepository implements IMediaRepository {
     return true;
   }
 
-  async generateThumbnails(input: string | Buffer, options: GenerateImageOptions): Promise<void> {
-    const pipeline = sharp(input, { failOn: 'none' })
+  async generateThumbnails(input: string | Buffer, options: GenerateImageOptions): Promise<void | Buffer> {
+    const pipeline = sharp(input, { failOn: 'error' })
       .pipelineColorspace(options.colorspace === Colorspace.SRGB ? 'srgb' : 'rgb16')
       .withIccProfile(options.colorspace)
       .rotate();
 
-    const outputs = [options.preview, options.thumbnail]
-      .filter((output): output is ImageOptions => !!output)
-      .map((output) => this.saveImage(pipeline.clone(), output));
-    await Promise.all(outputs);
+    const outputs = [];
+    if (options.preview) {
+      outputs.push(this.saveImageToFile(pipeline.clone(), options.preview));
+    }
+
+    if (options.thumbnail) {
+      outputs.push(this.saveImageToFile(pipeline.clone(), options.thumbnail));
+    }
+
+    if (options.thumbhash) {
+      outputs.push(
+        pipeline
+          .clone()
+          .resize(100, 100, { fit: 'inside', withoutEnlargement: true })
+          .raw()
+          .ensureAlpha()
+          .toBuffer({ resolveWithObject: true }),
+      );
+    }
+
+    const [, buffer] = await Promise.all(outputs);
+
+    if ('data' in buffer && buffer.data && buffer.info) {
+      const thumbhash = await import('thumbhash');
+      return Buffer.from(thumbhash.rgbaToThumbHash(buffer.info.width, buffer.info.height, buffer.data));
+    }
   }
 
-  private saveImage(pipeline: sharp.Sharp, options: ImageOptions): Promise<sharp.OutputInfo> {
+  private saveImageToFile(pipeline: sharp.Sharp, options: ImageOptions): Promise<sharp.OutputInfo> {
     if (options.crop) {
       pipeline.extract(options.crop);
     }
@@ -138,19 +160,6 @@ export class MediaRepository implements IMediaRepository {
         })
         .run();
     });
-  }
-
-  async generateThumbhash(imagePath: string): Promise<Buffer> {
-    const maxSize = 100;
-
-    const { data, info } = await sharp(imagePath)
-      .resize(maxSize, maxSize, { fit: 'inside', withoutEnlargement: true })
-      .raw()
-      .ensureAlpha()
-      .toBuffer({ resolveWithObject: true });
-
-    const thumbhash = await import('thumbhash');
-    return Buffer.from(thumbhash.rgbaToThumbHash(info.width, info.height, data));
   }
 
   async getImageDimensions(input: string): Promise<ImageDimensions> {
