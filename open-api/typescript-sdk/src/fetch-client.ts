@@ -1993,7 +1993,7 @@ export function updateLibrary({ id, updateLibraryDto }: {
         body: updateLibraryDto
     })));
 }
-export function removeOfflineFiles({ id }: {
+export function removeOfflineAssets({ id }: {
     id: string;
 }, opts?: Oazapfts.RequestOpts) {
     return oazapfts.ok(oazapfts.fetchText(`/libraries/${encodeURIComponent(id)}/removeOffline`, {
@@ -2001,7 +2001,7 @@ export function removeOfflineFiles({ id }: {
         method: "POST"
     }));
 }
-export function scanLibrary({ id, scanLibraryDto }: {
+export function scanNewAssets({ id, scanLibraryDto }: {
     id: string;
     scanLibraryDto: ScanLibraryDto;
 }, opts?: Oazapfts.RequestOpts) {
@@ -2010,6 +2010,14 @@ export function scanLibrary({ id, scanLibraryDto }: {
         method: "POST",
         body: scanLibraryDto
     })));
+}
+export function scanRemovedAssets({ id }: {
+    id: string;
+}, opts?: Oazapfts.RequestOpts) {
+    return oazapfts.ok(oazapfts.fetchText(`/libraries/${encodeURIComponent(id)}/scanRemoved`, {
+        ...opts,
+        method: "POST"
+    }));
 }
 export function getLibraryStatistics({ id }: {
     id: string;

@@ -2816,7 +2816,7 @@
     },
     "/libraries/{id}/removeOffline": {
       "post": {
-        "operationId": "removeOfflineFiles",
+        "operationId": "removeOfflineAssets",
         "parameters": [
           {
             "name": "id",
@@ -2851,7 +2851,7 @@
     },
     "/libraries/{id}/scan": {
       "post": {
-        "operationId": "scanLibrary",
+        "operationId": "scanNewAssets",
         "parameters": [
           {
             "name": "id",
@@ -2873,6 +2873,41 @@
           },
           "required": true
         },
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          },
+          {
+            "cookie": []
+          },
+          {
+            "api_key": []
+          }
+        ],
+        "tags": [
+          "Libraries"
+        ]
+      }
+    },
+    "/libraries/{id}/scanRemoved": {
+      "post": {
+        "operationId": "scanRemovedAssets",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "204": {
             "description": ""

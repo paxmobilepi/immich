@@ -131,8 +131,9 @@ Class | Method | HTTP request | Description
 *LibrariesApi* | [**getAllLibraries**](doc//LibrariesApi.md#getalllibraries) | **GET** /libraries | 
 *LibrariesApi* | [**getLibrary**](doc//LibrariesApi.md#getlibrary) | **GET** /libraries/{id} | 
 *LibrariesApi* | [**getLibraryStatistics**](doc//LibrariesApi.md#getlibrarystatistics) | **GET** /libraries/{id}/statistics | 
-*LibrariesApi* | [**removeOfflineFiles**](doc//LibrariesApi.md#removeofflinefiles) | **POST** /libraries/{id}/removeOffline | 
-*LibrariesApi* | [**scanLibrary**](doc//LibrariesApi.md#scanlibrary) | **POST** /libraries/{id}/scan | 
+*LibrariesApi* | [**removeOfflineAssets**](doc//LibrariesApi.md#removeofflineassets) | **POST** /libraries/{id}/removeOffline | 
+*LibrariesApi* | [**scanNewAssets**](doc//LibrariesApi.md#scannewassets) | **POST** /libraries/{id}/scan | 
+*LibrariesApi* | [**scanRemovedAssets**](doc//LibrariesApi.md#scanremovedassets) | **POST** /libraries/{id}/scanRemoved | 
 *LibrariesApi* | [**updateLibrary**](doc//LibrariesApi.md#updatelibrary) | **PUT** /libraries/{id} | 
 *LibrariesApi* | [**validate**](doc//LibrariesApi.md#validate) | **POST** /libraries/{id}/validate | 
 *MapApi* | [**getMapMarkers**](doc//MapApi.md#getmapmarkers) | **GET** /map/markers | 
