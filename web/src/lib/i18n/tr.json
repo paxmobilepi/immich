@@ -197,7 +197,7 @@
     "refreshing_all_libraries": "Tüm kütüphaneler yenileniyor",
     "registration": "Yönetici kaydı",
     "registration_description": "Sistemdeki ilk kullanıcı olduğunuz için hesabınız Yönetici olarak ayarlandı. Yeni oluşturulan üyeliklerin, ve yönetici görevlerinin sorumlusu olarak atandınız.",
-    "removing_offline_files": "Çevrimdışı dosyalar kaldırılıyor",
+    "removing_deleted_files": "Çevrimdışı dosyalar kaldırılıyor",
     "repair_all": "Tümünü onar",
     "repair_matched_items": "",
     "repaired_items": "{count, plural, one {# item} other {# items}} tamir edildi",

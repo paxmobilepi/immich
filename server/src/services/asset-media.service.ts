@@ -439,7 +439,6 @@ export class AssetMediaService {
       livePhotoVideoId: dto.livePhotoVideoId,
       originalFileName: file.originalName,
       sidecarPath: sidecarFile?.originalPath,
-      isOffline: dto.isOffline ?? false,
     });
 
     if (sidecarFile) {

@@ -250,7 +250,6 @@ export type AssetResponseDto = {
     id: string;
     isArchived: boolean;
     isFavorite: boolean;
-    isOffline: boolean;
     isTrashed: boolean;
     /** This property was deprecated in v1.106.0 */
     libraryId?: string | null;
@@ -1993,7 +1992,7 @@ export function updateLibrary({ id, updateLibraryDto }: {
         body: updateLibraryDto
     })));
 }
-export function scanRemovedAssets({ id }: {
+export function removeDeletedAssets({ id }: {
     id: string;
 }, opts?: Oazapfts.RequestOpts) {
     return oazapfts.ok(oazapfts.fetchText(`/libraries/${encodeURIComponent(id)}/removeDeleted`, {

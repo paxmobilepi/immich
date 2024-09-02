@@ -198,7 +198,7 @@
     "refreshing_all_libraries": "刷新所有图库",
     "registration": "注册管理员",
     "registration_description": "因为您是本系统的第一个用户，您被指派为管理员，负责相关管理工作，并且由您来创建新的用户。",
-    "removing_offline_files": "移除离线文件",
+    "removing_deleted_files": "移除离线文件",
     "repair_all": "修复所有",
     "repair_matched_items": "匹配到 {count, plural, one {#个项目} other {#个项目}}",
     "repaired_items": "已修复{count, plural, one {#个项目} other {#个项目}}",
