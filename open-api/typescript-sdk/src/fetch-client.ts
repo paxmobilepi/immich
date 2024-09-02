@@ -362,7 +362,6 @@ export type AssetMediaCreateDto = {
     fileModifiedAt: string;
     isArchived?: boolean;
     isFavorite?: boolean;
-    isOffline?: boolean;
     isVisible?: boolean;
     livePhotoVideoId?: string;
     sidecarData?: Blob;
@@ -572,6 +571,7 @@ export type UpdateLibraryDto = {
 export type ScanLibraryDto = {
     refreshAllFiles?: boolean;
     refreshModifiedFiles?: boolean;
+    removeDeleted?: boolean;
 };
 export type LibraryStatsResponseDto = {
     photos: number;
@@ -766,7 +766,6 @@ export type MetadataSearchDto = {
     isFavorite?: boolean;
     isMotion?: boolean;
     isNotInAlbum?: boolean;
-    isOffline?: boolean;
     isVisible?: boolean;
     lensModel?: string | null;
     libraryId?: string | null;
@@ -837,7 +836,6 @@ export type SmartSearchDto = {
     isFavorite?: boolean;
     isMotion?: boolean;
     isNotInAlbum?: boolean;
-    isOffline?: boolean;
     isVisible?: boolean;
     lensModel?: string | null;
     libraryId?: string | null;
@@ -1992,15 +1990,7 @@ export function updateLibrary({ id, updateLibraryDto }: {
         body: updateLibraryDto
     })));
 }
-export function removeDeletedAssets({ id }: {
-    id: string;
-}, opts?: Oazapfts.RequestOpts) {
-    return oazapfts.ok(oazapfts.fetchText(`/libraries/${encodeURIComponent(id)}/removeDeleted`, {
-        ...opts,
-        method: "POST"
-    }));
-}
-export function scanNewAssets({ id, scanLibraryDto }: {
+export function scan({ id, scanLibraryDto }: {
     id: string;
     scanLibraryDto: ScanLibraryDto;
 }, opts?: Oazapfts.RequestOpts) {

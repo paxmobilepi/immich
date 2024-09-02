@@ -131,8 +131,7 @@ Class | Method | HTTP request | Description
 *LibrariesApi* | [**getAllLibraries**](doc//LibrariesApi.md#getalllibraries) | **GET** /libraries | 
 *LibrariesApi* | [**getLibrary**](doc//LibrariesApi.md#getlibrary) | **GET** /libraries/{id} | 
 *LibrariesApi* | [**getLibraryStatistics**](doc//LibrariesApi.md#getlibrarystatistics) | **GET** /libraries/{id}/statistics | 
-*LibrariesApi* | [**removeDeletedAssets**](doc//LibrariesApi.md#removedeletedassets) | **POST** /libraries/{id}/removeDeleted | 
-*LibrariesApi* | [**scanNewAssets**](doc//LibrariesApi.md#scannewassets) | **POST** /libraries/{id}/scan | 
+*LibrariesApi* | [**scan**](doc//LibrariesApi.md#scan) | **POST** /libraries/{id}/scan | 
 *LibrariesApi* | [**updateLibrary**](doc//LibrariesApi.md#updatelibrary) | **PUT** /libraries/{id} | 
 *LibrariesApi* | [**validate**](doc//LibrariesApi.md#validate) | **POST** /libraries/{id}/validate | 
 *MapApi* | [**getMapMarkers**](doc//MapApi.md#getmapmarkers) | **GET** /map/markers | 
