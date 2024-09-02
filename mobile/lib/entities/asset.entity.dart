@@ -32,7 +32,6 @@ class Asset {
         isFavorite = remote.isFavorite,
         isArchived = remote.isArchived,
         isTrashed = remote.isTrashed,
-        isOffline = remote.isOffline,
         // workaround to nullify stackPrimaryAssetId for the parent asset until we refactor the mobile app
         // stack handling to properly handle it
         stackPrimaryAssetId = remote.stack?.primaryAssetId == remote.id
@@ -470,7 +469,6 @@ class Asset {
   "height": ${height ?? "N/A"},
   "isArchived": $isArchived,
   "isTrashed": $isTrashed,
-  "isOffline": $isOffline,
 }""";
   }
 }
