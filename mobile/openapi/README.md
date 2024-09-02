@@ -131,9 +131,8 @@ Class | Method | HTTP request | Description
 *LibrariesApi* | [**getAllLibraries**](doc//LibrariesApi.md#getalllibraries) | **GET** /libraries | 
 *LibrariesApi* | [**getLibrary**](doc//LibrariesApi.md#getlibrary) | **GET** /libraries/{id} | 
 *LibrariesApi* | [**getLibraryStatistics**](doc//LibrariesApi.md#getlibrarystatistics) | **GET** /libraries/{id}/statistics | 
-*LibrariesApi* | [**removeOfflineAssets**](doc//LibrariesApi.md#removeofflineassets) | **POST** /libraries/{id}/removeOffline | 
 *LibrariesApi* | [**scanNewAssets**](doc//LibrariesApi.md#scannewassets) | **POST** /libraries/{id}/scan | 
-*LibrariesApi* | [**scanRemovedAssets**](doc//LibrariesApi.md#scanremovedassets) | **POST** /libraries/{id}/scanRemoved | 
+*LibrariesApi* | [**scanRemovedAssets**](doc//LibrariesApi.md#scanremovedassets) | **POST** /libraries/{id}/removeDeleted | 
 *LibrariesApi* | [**updateLibrary**](doc//LibrariesApi.md#updatelibrary) | **PUT** /libraries/{id} | 
 *LibrariesApi* | [**validate**](doc//LibrariesApi.md#validate) | **POST** /libraries/{id}/validate | 
 *MapApi* | [**getMapMarkers**](doc//MapApi.md#getmapmarkers) | **GET** /map/markers | 
