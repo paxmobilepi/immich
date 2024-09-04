@@ -294,6 +294,7 @@ export class AssetRepository implements IAssetRepository {
   @Chunked()
   async restoreAll(ids: string[]): Promise<void> {
     await this.repository.restore({ id: In(ids) });
+    await this.updateAll(ids, { trashReason: null });
   }
 
   async update(asset: AssetUpdateOptions): Promise<void> {

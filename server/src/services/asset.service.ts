@@ -14,6 +14,7 @@ import {
   AssetJobName,
   AssetJobsDto,
   AssetStatsDto,
+  AssetTrashReason,
   UpdateAssetDto,
   mapStats,
 } from 'src/dtos/asset.dto';
@@ -286,6 +287,11 @@ export class AssetService {
         })),
       );
     } else {
+      if (!dto.trashReason) {
+        dto.trashReason = AssetTrashReason.USER;
+      }
+
+      await this.assetRepository.updateAll(ids, { trashReason: dto.trashReason });
       await this.assetRepository.softDeleteAll(ids);
       this.eventRepository.clientSend(ClientEvent.ASSET_TRASH, auth.user.id, ids);
     }
