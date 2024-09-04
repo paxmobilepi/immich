@@ -8377,6 +8377,10 @@
             "nullable": true,
             "type": "string"
           },
+          "trashReason": {
+            "nullable": true,
+            "type": "string"
+          },
           "type": {
             "$ref": "#/components/schemas/AssetTypeEnum"
           },
