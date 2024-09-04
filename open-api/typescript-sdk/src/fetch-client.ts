@@ -569,9 +569,6 @@ export type UpdateLibraryDto = {
     importPaths?: string[];
     name?: string;
 };
-export type ScanLibraryDto = {
-    removeDeleted?: boolean;
-};
 export type LibraryStatsResponseDto = {
     photos: number;
     total: number;
@@ -1989,15 +1986,13 @@ export function updateLibrary({ id, updateLibraryDto }: {
         body: updateLibraryDto
     })));
 }
-export function scan({ id, scanLibraryDto }: {
+export function scan({ id }: {
     id: string;
-    scanLibraryDto: ScanLibraryDto;
 }, opts?: Oazapfts.RequestOpts) {
-    return oazapfts.ok(oazapfts.fetchText(`/libraries/${encodeURIComponent(id)}/scan`, oazapfts.json({
+    return oazapfts.ok(oazapfts.fetchText(`/libraries/${encodeURIComponent(id)}/scan`, {
         ...opts,
-        method: "POST",
-        body: scanLibraryDto
-    })));
+        method: "POST"
+    }));
 }
 export function getLibraryStatistics({ id }: {
     id: string;
