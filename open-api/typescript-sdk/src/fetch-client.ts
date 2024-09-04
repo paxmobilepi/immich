@@ -352,6 +352,7 @@ export type ApiKeyUpdateDto = {
 export type AssetBulkDeleteDto = {
     force?: boolean;
     ids: string[];
+    trashReason?: TrashReason;
 };
 export type AssetMediaCreateDto = {
     assetData: Blob;
@@ -569,8 +570,6 @@ export type UpdateLibraryDto = {
     name?: string;
 };
 export type ScanLibraryDto = {
-    refreshAllFiles?: boolean;
-    refreshModifiedFiles?: boolean;
     removeDeleted?: boolean;
 };
 export type LibraryStatsResponseDto = {
@@ -3310,6 +3309,10 @@ export enum Permission {
     AdminUserRead = "admin.user.read",
     AdminUserUpdate = "admin.user.update",
     AdminUserDelete = "admin.user.delete"
+}
+export enum TrashReason {
+    User = "user",
+    Offline = "offline"
 }
 export enum AssetMediaStatus {
     Created = "created",
