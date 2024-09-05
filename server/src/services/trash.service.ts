@@ -8,7 +8,6 @@ import { IAccessRepository } from 'src/interfaces/access.interface';
 import { IAssetRepository } from 'src/interfaces/asset.interface';
 import { ClientEvent, IEventRepository } from 'src/interfaces/event.interface';
 import { IJobRepository, JOBS_ASSET_PAGINATION_SIZE, JobName } from 'src/interfaces/job.interface';
-import { AddTrashReason1725444664102 } from 'src/migrations/1725444664102-AddTrashReason';
 import { requireAccess } from 'src/utils/access';
 import { usePagination } from 'src/utils/pagination';
 
