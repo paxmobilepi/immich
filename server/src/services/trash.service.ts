@@ -22,7 +22,14 @@ export class TrashService {
   async restoreAssets(auth: AuthDto, dto: BulkIdsDto): Promise<void> {
     const { ids } = dto;
     await requireAccess(this.access, { auth, permission: Permission.ASSET_DELETE, ids });
-    await this.restoreAndSend(auth, ids);
+
+    const assets = await this.assetRepository.getByIds(ids);
+    const deletedAssets = assets.filter((a) => a.trashReason === AssetTrashReason.DELETED);
+
+    await this.restoreAndSend(
+      auth,
+      deletedAssets.map((asset) => asset.id),
+    );
   }
 
   async restore(auth: AuthDto): Promise<void> {
@@ -64,13 +71,7 @@ export class TrashService {
       return;
     }
 
-    const assets = await this.assetRepository.getByIds(ids);
-    const deletedAssets = assets.filter((a) => a.trashReason === AssetTrashReason.DELETED);
-
-    if (deletedAssets.length > 0) {
-      const filteredIds = deletedAssets.map((asset) => asset.id);
-      await this.assetRepository.restoreAll(filteredIds);
-      this.eventRepository.clientSend(ClientEvent.ASSET_RESTORE, auth.user.id, filteredIds);
-    }
+    await this.assetRepository.restoreAll(ids);
+    this.eventRepository.clientSend(ClientEvent.ASSET_RESTORE, auth.user.id, ids);
   }
 }

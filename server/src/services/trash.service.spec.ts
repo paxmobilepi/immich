@@ -41,11 +41,12 @@ describe(TrashService.name, () => {
     });
 
     it('should restore a batch of assets', async () => {
-      accessMock.asset.checkOwnerAccess.mockResolvedValue(new Set(['asset1', 'asset2']));
+      assetMock.getByIds.mockResolvedValue([assetStub.trashed, assetStub.trashed]);
+      accessMock.asset.checkOwnerAccess.mockResolvedValue(new Set([assetStub.trashed.id, assetStub.trashed.id]));
 
-      await sut.restoreAssets(authStub.user1, { ids: ['asset1', 'asset2'] });
+      await sut.restoreAssets(authStub.user1, { ids: [assetStub.trashed.id, assetStub.trashed.id] });
 
-      expect(assetMock.restoreAll).toHaveBeenCalledWith(['asset1', 'asset2']);
+      expect(assetMock.restoreAll).toHaveBeenCalledWith([assetStub.trashed.id, assetStub.trashed.id]);
       expect(jobMock.queue.mock.calls).toEqual([]);
     });
   });
@@ -59,9 +60,9 @@ describe(TrashService.name, () => {
     });
 
     it('should restore and notify', async () => {
-      assetMock.getByUserId.mockResolvedValue({ items: [assetStub.image], hasNextPage: false });
+      assetMock.getByUserId.mockResolvedValue({ items: [assetStub.trashed], hasNextPage: false });
       await expect(sut.restore(authStub.user1)).resolves.toBeUndefined();
-      expect(assetMock.restoreAll).toHaveBeenCalledWith([assetStub.image.id]);
+      expect(assetMock.restoreAll).toHaveBeenCalledWith([assetStub.trashed.id]);
       expect(eventMock.clientSend).toHaveBeenCalledWith(ClientEvent.ASSET_RESTORE, authStub.user1.user.id, [
         assetStub.image.id,
       ]);
@@ -76,10 +77,10 @@ describe(TrashService.name, () => {
     });
 
     it('should empty the trash', async () => {
-      assetMock.getByUserId.mockResolvedValue({ items: [assetStub.image], hasNextPage: false });
+      assetMock.getByUserId.mockResolvedValue({ items: [assetStub.trashed], hasNextPage: false });
       await expect(sut.empty(authStub.user1)).resolves.toBeUndefined();
       expect(jobMock.queueAll).toHaveBeenCalledWith([
-        { name: JobName.ASSET_DELETION, data: { id: assetStub.image.id, deleteOnDisk: true } },
+        { name: JobName.ASSET_DELETION, data: { id: assetStub.trashed.id, deleteOnDisk: true } },
       ]);
     });
 
