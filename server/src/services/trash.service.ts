@@ -1,6 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { DateTime } from 'luxon';
 import { BulkIdsDto } from 'src/dtos/asset-ids.response.dto';
+import { AssetTrashReason } from 'src/dtos/asset.dto';
 import { AuthDto } from 'src/dtos/auth.dto';
 import { Permission } from 'src/enum';
 import { IAccessRepository } from 'src/interfaces/access.interface';
@@ -28,6 +29,7 @@ export class TrashService {
     const assetPagination = usePagination(JOBS_ASSET_PAGINATION_SIZE, (pagination) =>
       this.assetRepository.getByUserId(pagination, auth.user.id, {
         trashedBefore: DateTime.now().toJSDate(),
+        trashReason: AssetTrashReason.DELETED,
       }),
     );
 
@@ -51,7 +53,7 @@ export class TrashService {
           name: JobName.ASSET_DELETION,
           data: {
             id: asset.id,
-            deleteOnDisk: true,
+            deleteOnDisk: asset.trashReason === AssetTrashReason.DELETED,
           },
         })),
       );

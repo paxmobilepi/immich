@@ -82,5 +82,13 @@ describe(TrashService.name, () => {
         { name: JobName.ASSET_DELETION, data: { id: assetStub.image.id, deleteOnDisk: true } },
       ]);
     });
+
+    it('should not delete offline assets from disk', async () => {
+      assetMock.getByUserId.mockResolvedValue({ items: [assetStub.trashedOffline], hasNextPage: false });
+      await expect(sut.empty(authStub.user1)).resolves.toBeUndefined();
+      expect(jobMock.queueAll).toHaveBeenCalledWith([
+        { name: JobName.ASSET_DELETION, data: { id: assetStub.trashedOffline.id, deleteOnDisk: false } },
+      ]);
+    });
   });
 });

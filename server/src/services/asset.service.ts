@@ -288,7 +288,7 @@ export class AssetService {
       );
     } else {
       if (!dto.trashReason) {
-        dto.trashReason = AssetTrashReason.USER;
+        dto.trashReason = AssetTrashReason.DELETED;
       }
 
       await this.assetRepository.updateAll(ids, { trashReason: dto.trashReason });

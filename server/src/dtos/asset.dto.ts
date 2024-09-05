@@ -92,7 +92,7 @@ export class AssetIdsDto {
 }
 
 export enum AssetTrashReason {
-  USER = 'user',
+  DELETED = 'deleted',
   OFFLINE = 'offline',
 }
 
