@@ -8,6 +8,7 @@ import { IAccessRepository } from 'src/interfaces/access.interface';
 import { IAssetRepository } from 'src/interfaces/asset.interface';
 import { ClientEvent, IEventRepository } from 'src/interfaces/event.interface';
 import { IJobRepository, JOBS_ASSET_PAGINATION_SIZE, JobName } from 'src/interfaces/job.interface';
+import { AddTrashReason1725444664102 } from 'src/migrations/1725444664102-AddTrashReason';
 import { requireAccess } from 'src/utils/access';
 import { usePagination } from 'src/utils/pagination';
 
@@ -29,12 +30,11 @@ export class TrashService {
     const assetPagination = usePagination(JOBS_ASSET_PAGINATION_SIZE, (pagination) =>
       this.assetRepository.getByUserId(pagination, auth.user.id, {
         trashedBefore: DateTime.now().toJSDate(),
-        trashReason: AssetTrashReason.DELETED,
       }),
     );
 
     for await (const assets of assetPagination) {
-      const ids = assets.map((a) => a.id);
+      const ids = assets.filter((a) => a.trashReason === AssetTrashReason.DELETED).map((a) => a.id);
       await this.restoreAndSend(auth, ids);
     }
   }
@@ -65,7 +65,13 @@ export class TrashService {
       return;
     }
 
-    await this.assetRepository.restoreAll(ids);
-    this.eventRepository.clientSend(ClientEvent.ASSET_RESTORE, auth.user.id, ids);
+    const assets = await this.assetRepository.getByIds(ids);
+    const deletedAssets = assets.filter((a) => a.trashReason === AssetTrashReason.DELETED);
+
+    if (deletedAssets.length > 0) {
+      const filteredIds = deletedAssets.map((asset) => asset.id);
+      await this.assetRepository.restoreAll(filteredIds);
+      this.eventRepository.clientSend(ClientEvent.ASSET_RESTORE, auth.user.id, filteredIds);
+    }
   }
 }
