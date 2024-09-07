@@ -42,7 +42,7 @@
     mdiPresentationPlay,
     mdiUpload,
   } from '@mdi/js';
-  import { canCopyImagesToClipboard } from 'copy-image-clipboard';
+  import { canCopyImageToClipboard } from '$lib/utils/asset-utils';
   import { t } from 'svelte-i18n';
 
   export let asset: AssetResponseDto;
@@ -102,7 +102,7 @@
         on:click={onZoomImage}
       />
     {/if}
-    {#if canCopyImagesToClipboard() && asset.type === AssetTypeEnum.Image}
+    {#if canCopyImageToClipboard() && asset.type === AssetTypeEnum.Image}
       <CircleIconButton color="opaque" icon={mdiContentCopy} title={$t('copy_image')} on:click={onCopyImage} />
     {/if}
 

@@ -178,6 +178,7 @@ FROM
       "AssetFaceEntity__AssetFaceEntity_asset"."originalFileName" AS "AssetFaceEntity__AssetFaceEntity_asset_originalFileName",
       "AssetFaceEntity__AssetFaceEntity_asset"."sidecarPath" AS "AssetFaceEntity__AssetFaceEntity_asset_sidecarPath",
       "AssetFaceEntity__AssetFaceEntity_asset"."stackId" AS "AssetFaceEntity__AssetFaceEntity_asset_stackId",
+      "AssetFaceEntity__AssetFaceEntity_asset"."trashReason" AS "AssetFaceEntity__AssetFaceEntity_asset_trashReason",
       "AssetFaceEntity__AssetFaceEntity_asset"."duplicateId" AS "AssetFaceEntity__AssetFaceEntity_asset_duplicateId"
     FROM
       "asset_faces" "AssetFaceEntity"
@@ -283,6 +284,7 @@ FROM
       "AssetEntity"."originalFileName" AS "AssetEntity_originalFileName",
       "AssetEntity"."sidecarPath" AS "AssetEntity_sidecarPath",
       "AssetEntity"."stackId" AS "AssetEntity_stackId",
+      "AssetEntity"."trashReason" AS "AssetEntity_trashReason",
       "AssetEntity"."duplicateId" AS "AssetEntity_duplicateId",
       "AssetEntity__AssetEntity_faces"."id" AS "AssetEntity__AssetEntity_faces_id",
       "AssetEntity__AssetEntity_faces"."assetId" AS "AssetEntity__AssetEntity_faces_assetId",
@@ -413,6 +415,7 @@ SELECT
   "AssetFaceEntity__AssetFaceEntity_asset"."originalFileName" AS "AssetFaceEntity__AssetFaceEntity_asset_originalFileName",
   "AssetFaceEntity__AssetFaceEntity_asset"."sidecarPath" AS "AssetFaceEntity__AssetFaceEntity_asset_sidecarPath",
   "AssetFaceEntity__AssetFaceEntity_asset"."stackId" AS "AssetFaceEntity__AssetFaceEntity_asset_stackId",
+  "AssetFaceEntity__AssetFaceEntity_asset"."trashReason" AS "AssetFaceEntity__AssetFaceEntity_asset_trashReason",
   "AssetFaceEntity__AssetFaceEntity_asset"."duplicateId" AS "AssetFaceEntity__AssetFaceEntity_asset_duplicateId"
 FROM
   "asset_faces" "AssetFaceEntity"

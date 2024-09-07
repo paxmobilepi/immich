@@ -32,6 +32,7 @@ FROM
       "asset"."originalFileName" AS "asset_originalFileName",
       "asset"."sidecarPath" AS "asset_sidecarPath",
       "asset"."stackId" AS "asset_stackId",
+      "asset"."trashReason" AS "asset_trashReason",
       "asset"."duplicateId" AS "asset_duplicateId",
       "stack"."id" AS "stack_id",
       "stack"."ownerId" AS "stack_ownerId",
@@ -61,6 +62,7 @@ FROM
       "stackedAssets"."originalFileName" AS "stackedAssets_originalFileName",
       "stackedAssets"."sidecarPath" AS "stackedAssets_sidecarPath",
       "stackedAssets"."stackId" AS "stackedAssets_stackId",
+      "stackedAssets"."trashReason" AS "stackedAssets_trashReason",
       "stackedAssets"."duplicateId" AS "stackedAssets_duplicateId"
     FROM
       "assets" "asset"
@@ -123,6 +125,7 @@ SELECT
   "asset"."originalFileName" AS "asset_originalFileName",
   "asset"."sidecarPath" AS "asset_sidecarPath",
   "asset"."stackId" AS "asset_stackId",
+  "asset"."trashReason" AS "asset_trashReason",
   "asset"."duplicateId" AS "asset_duplicateId",
   "stack"."id" AS "stack_id",
   "stack"."ownerId" AS "stack_ownerId",
@@ -152,6 +155,7 @@ SELECT
   "stackedAssets"."originalFileName" AS "stackedAssets_originalFileName",
   "stackedAssets"."sidecarPath" AS "stackedAssets_sidecarPath",
   "stackedAssets"."stackId" AS "stackedAssets_stackId",
+  "stackedAssets"."trashReason" AS "stackedAssets_trashReason",
   "stackedAssets"."duplicateId" AS "stackedAssets_duplicateId"
 FROM
   "assets" "asset"
@@ -360,6 +364,7 @@ SELECT
   "asset"."originalFileName" AS "asset_originalFileName",
   "asset"."sidecarPath" AS "asset_sidecarPath",
   "asset"."stackId" AS "asset_stackId",
+  "asset"."trashReason" AS "asset_trashReason",
   "asset"."duplicateId" AS "asset_duplicateId",
   "exif"."assetId" AS "exif_assetId",
   "exif"."description" AS "exif_description",
