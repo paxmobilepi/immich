@@ -9962,6 +9962,10 @@
           },
           "profileImagePath": {
             "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
           }
         },
         "required": [
@@ -9969,7 +9973,8 @@
           "email",
           "id",
           "name",
-          "profileImagePath"
+          "profileImagePath",
+          "updatedAt"
         ],
         "type": "object"
       },
@@ -12595,6 +12600,10 @@
           },
           "profileImagePath": {
             "type": "string"
+          },
+          "updatedAt": {
+            "format": "date-time",
+            "type": "string"
           }
         },
         "required": [
@@ -12602,7 +12611,8 @@
           "email",
           "id",
           "name",
-          "profileImagePath"
+          "profileImagePath",
+          "updatedAt"
         ],
         "type": "object"
       },

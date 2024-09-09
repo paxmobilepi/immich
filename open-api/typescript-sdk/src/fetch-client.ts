@@ -20,6 +20,7 @@ export type UserResponseDto = {
     id: string;
     name: string;
     profileImagePath: string;
+    updatedAt: string;
 };
 export type ActivityResponseDto = {
     assetId: string | null;
@@ -665,6 +666,7 @@ export type PartnerResponseDto = {
     inTimeline?: boolean;
     name: string;
     profileImagePath: string;
+    updatedAt: string;
 };
 export type UpdatePartnerDto = {
     inTimeline: boolean;

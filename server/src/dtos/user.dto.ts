@@ -32,6 +32,7 @@ export class UserResponseDto {
   profileImagePath!: string;
   @ApiProperty({ enumName: 'UserAvatarColor', enum: UserAvatarColor })
   avatarColor!: UserAvatarColor;
+  updatedAt!: Date;
 }
 
 export class UserLicense {
@@ -47,6 +48,7 @@ export const mapUser = (entity: UserEntity): UserResponseDto => {
     name: entity.name,
     profileImagePath: entity.profileImagePath,
     avatarColor: getPreferences(entity).avatar.color,
+    updatedAt: entity.updatedAt,
   };
 };
 
@@ -129,7 +131,6 @@ export class UserAdminResponseDto extends UserResponseDto {
   isAdmin!: boolean;
   createdAt!: Date;
   deletedAt!: Date | null;
-  updatedAt!: Date;
   oauthId!: string;
   @ApiProperty({ type: 'integer', format: 'int64' })
   quotaSizeInBytes!: number | null;

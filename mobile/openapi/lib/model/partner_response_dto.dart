@@ -19,6 +19,7 @@ class PartnerResponseDto {
     this.inTimeline,
     required this.name,
     required this.profileImagePath,
+    required this.updatedAt,
   });
 
   UserAvatarColor avatarColor;
@@ -39,6 +40,8 @@ class PartnerResponseDto {
 
   String profileImagePath;
 
+  DateTime updatedAt;
+
   @override
   bool operator ==(Object other) => identical(this, other) || other is PartnerResponseDto &&
     other.avatarColor == avatarColor &&
@@ -46,7 +49,8 @@ class PartnerResponseDto {
     other.id == id &&
     other.inTimeline == inTimeline &&
     other.name == name &&
-    other.profileImagePath == profileImagePath;
+    other.profileImagePath == profileImagePath &&
+    other.updatedAt == updatedAt;
 
   @override
   int get hashCode =>
@@ -56,10 +60,11 @@ class PartnerResponseDto {
     (id.hashCode) +
     (inTimeline == null ? 0 : inTimeline!.hashCode) +
     (name.hashCode) +
-    (profileImagePath.hashCode);
+    (profileImagePath.hashCode) +
+    (updatedAt.hashCode);
 
   @override
-  String toString() => 'PartnerResponseDto[avatarColor=$avatarColor, email=$email, id=$id, inTimeline=$inTimeline, name=$name, profileImagePath=$profileImagePath]';
+  String toString() => 'PartnerResponseDto[avatarColor=$avatarColor, email=$email, id=$id, inTimeline=$inTimeline, name=$name, profileImagePath=$profileImagePath, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -73,6 +78,7 @@ class PartnerResponseDto {
     }
       json[r'name'] = this.name;
       json[r'profileImagePath'] = this.profileImagePath;
+      json[r'updatedAt'] = this.updatedAt.toUtc().toIso8601String();
     return json;
   }
 
@@ -90,6 +96,7 @@ class PartnerResponseDto {
         inTimeline: mapValueOfType<bool>(json, r'inTimeline'),
         name: mapValueOfType<String>(json, r'name')!,
         profileImagePath: mapValueOfType<String>(json, r'profileImagePath')!,
+        updatedAt: mapDateTime(json, r'updatedAt', r'')!,
       );
     }
     return null;
@@ -142,6 +149,7 @@ class PartnerResponseDto {
     'id',
     'name',
     'profileImagePath',
+    'updatedAt',
   };
 }
 

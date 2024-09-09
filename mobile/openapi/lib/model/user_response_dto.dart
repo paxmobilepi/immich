@@ -18,6 +18,7 @@ class UserResponseDto {
     required this.id,
     required this.name,
     required this.profileImagePath,
+    required this.updatedAt,
   });
 
   UserAvatarColor avatarColor;
@@ -30,13 +31,16 @@ class UserResponseDto {
 
   String profileImagePath;
 
+  DateTime updatedAt;
+
   @override
   bool operator ==(Object other) => identical(this, other) || other is UserResponseDto &&
     other.avatarColor == avatarColor &&
     other.email == email &&
     other.id == id &&
     other.name == name &&
-    other.profileImagePath == profileImagePath;
+    other.profileImagePath == profileImagePath &&
+    other.updatedAt == updatedAt;
 
   @override
   int get hashCode =>
@@ -45,10 +49,11 @@ class UserResponseDto {
     (email.hashCode) +
     (id.hashCode) +
     (name.hashCode) +
-    (profileImagePath.hashCode);
+    (profileImagePath.hashCode) +
+    (updatedAt.hashCode);
 
   @override
-  String toString() => 'UserResponseDto[avatarColor=$avatarColor, email=$email, id=$id, name=$name, profileImagePath=$profileImagePath]';
+  String toString() => 'UserResponseDto[avatarColor=$avatarColor, email=$email, id=$id, name=$name, profileImagePath=$profileImagePath, updatedAt=$updatedAt]';
 
   Map<String, dynamic> toJson() {
     final json = <String, dynamic>{};
@@ -57,6 +62,7 @@ class UserResponseDto {
       json[r'id'] = this.id;
       json[r'name'] = this.name;
       json[r'profileImagePath'] = this.profileImagePath;
+      json[r'updatedAt'] = this.updatedAt.toUtc().toIso8601String();
     return json;
   }
 
@@ -73,6 +79,7 @@ class UserResponseDto {
         id: mapValueOfType<String>(json, r'id')!,
         name: mapValueOfType<String>(json, r'name')!,
         profileImagePath: mapValueOfType<String>(json, r'profileImagePath')!,
+        updatedAt: mapDateTime(json, r'updatedAt', r'')!,
       );
     }
     return null;
@@ -125,6 +132,7 @@ class UserResponseDto {
     'id',
     'name',
     'profileImagePath',
+    'updatedAt',
   };
 }
 
