@@ -63,6 +63,7 @@
         timeout: 3000,
       });
       $user.profileImagePath = profileImagePath;
+      $user.updatedAt = new Date().toISOString();
     } catch (error) {
       handleError(error, $t('errors.unable_to_set_profile_picture'));
     }

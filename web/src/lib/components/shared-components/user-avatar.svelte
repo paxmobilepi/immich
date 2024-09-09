@@ -13,6 +13,7 @@
     email: string;
     profileImagePath: string;
     avatarColor: UserAvatarColor;
+    updatedAt: string;
   }
 
   export let user: User;
@@ -26,10 +27,6 @@
 
   let img: HTMLImageElement;
   let showFallback = true;
-  let now = new Date().toISOString();
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  $: user.profileImagePath, (now = new Date().toISOString());
 
   // sveeeeeeelteeeeee fiveeeeee
   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -83,7 +80,7 @@
   {#if showProfileImage && user.profileImagePath}
     <img
       bind:this={img}
-      src={getProfileImageUrl(user.id, now)}
+      src={getProfileImageUrl(user.id, user.updatedAt)}
       alt={$t('profile_image_of_user', { values: { user: title } })}
       class="h-full w-full object-cover"
       class:hidden={showFallback}
