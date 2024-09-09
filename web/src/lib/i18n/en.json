@@ -386,6 +386,7 @@
   "asset_offline": "Asset Offline",
   "asset_offline_description": "This external asset is no longer found on disk. Please contact your Immich administrator for help.",
   "asset_skipped": "Skipped",
+  "asset_skipped_in_trash": "In trash",
   "asset_uploaded": "Uploaded",
   "asset_uploading": "Uploading...",
   "assets": "Assets",

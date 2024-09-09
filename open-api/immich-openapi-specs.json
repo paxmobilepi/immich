@@ -7890,6 +7890,9 @@
           "id": {
             "type": "string"
           },
+          "isTrashed": {
+            "type": "boolean"
+          },
           "reason": {
             "enum": [
               "duplicate",
