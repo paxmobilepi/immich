@@ -24,7 +24,7 @@ export class TrashService {
     await requireAccess(this.access, { auth, permission: Permission.ASSET_DELETE, ids });
 
     const assets = await this.assetRepository.getByIds(ids);
-    const deletedAssets = assets.filter((a) => a.trashReason === AssetTrashReason.DELETED);
+    const deletedAssets = assets.filter(({ trashReason }) => trashReason === AssetTrashReason.DELETED);
 
     await this.restoreAndSend(
       auth,
