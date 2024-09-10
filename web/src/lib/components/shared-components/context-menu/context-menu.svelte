@@ -48,9 +48,9 @@
     aria-label={ariaLabel}
     aria-labelledby={ariaLabelledBy}
     bind:this={menuElement}
-    class:max-h-[100vh]={isVisible}
+    class:max-h-[100dvh]={isVisible}
     class:max-h-0={!isVisible}
-    class="flex flex-col transition-all duration-[250ms] ease-in-out outline-none"
+    class="flex flex-col transition-all duration-[250ms] ease-in-out outline-none overflow-y-auto immich-scrollbar bg-slate-100"
     role="menu"
     tabindex="-1"
   >
