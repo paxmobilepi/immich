@@ -174,7 +174,7 @@
 
       <FavoriteAction removeFavorite={isAllFavorite} onFavorite={triggerAssetUpdate} />
 
-      <ButtonContextMenu icon={mdiDotsVertical} title={$t('add')}>
+      <ButtonContextMenu icon={mdiDotsVertical} title={$t('menu')}>
         <DownloadAction menuItem />
         <ChangeDate menuItem />
         <ChangeLocation menuItem />
