@@ -44,6 +44,7 @@
   import { t } from 'svelte-i18n';
   import { goto } from '$app/navigation';
   import DetailPanelTags from '$lib/components/asset-viewer/detail-panel-tags.svelte';
+  import Portal from '$lib/components/shared-components/portal/portal.svelte';
 
   export let asset: AssetResponseDto;
   export let albums: AlbumResponseDto[] = [];
@@ -331,11 +332,13 @@
             locale: $locale,
           })
         : DateTime.now()}
-      <ChangeDate
-        initialDate={assetDateTimeOriginal}
-        on:confirm={({ detail: date }) => handleConfirmChangeDate(date)}
-        on:cancel={() => (isShowChangeDate = false)}
-      />
+      <Portal>
+        <ChangeDate
+          initialDate={assetDateTimeOriginal}
+          on:confirm={({ detail: date }) => handleConfirmChangeDate(date)}
+          on:cancel={() => (isShowChangeDate = false)}
+        />
+      </Portal>
     {/if}
 
     {#if asset.exifInfo?.fileSizeInByte}
