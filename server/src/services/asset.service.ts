@@ -276,6 +276,7 @@ export class AssetService {
 
   async deleteAll(auth: AuthDto, dto: AssetBulkDeleteDto): Promise<void> {
     const { ids, force } = dto;
+    let { trashReason } = dto;
 
     await requireAccess(this.access, { auth, permission: Permission.ASSET_DELETE, ids });
 
@@ -287,11 +288,11 @@ export class AssetService {
         })),
       );
     } else {
-      if (!dto.trashReason) {
-        dto.trashReason = AssetTrashReason.DELETED;
+      if (!trashReason) {
+        trashReason = AssetTrashReason.DELETED;
       }
 
-      await this.assetRepository.updateAll(ids, { trashReason: dto.trashReason });
+      await this.assetRepository.updateAll(ids, { trashReason });
       await this.assetRepository.softDeleteAll(ids);
       this.eventRepository.clientSend(ClientEvent.ASSET_TRASH, auth.user.id, ids);
     }

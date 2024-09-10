@@ -63,7 +63,7 @@ export interface SearchStatusOptions {
   type?: AssetType;
   withArchived?: boolean;
   withDeleted?: boolean;
-  trashReason?: AssetTrashReason | null;
+  trashReason?: AssetTrashReason;
 }
 
 export interface SearchOneToOneRelationOptions {
