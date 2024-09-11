@@ -145,54 +145,59 @@ export type AssetPathEntity = Pick<AssetEntity, 'id' | 'originalPath'>;
 export const IAssetRepository = 'IAssetRepository';
 
 export interface IAssetRepository {
-  create(asset: AssetCreate): Promise<AssetEntity>;
-  deleteAll(ownerId: string): Promise<void>;
-  findLivePhotoMatch(options: LivePhotoSearchOptions): Promise<AssetEntity | null>;
-  getAll(pagination: PaginationOptions, options?: AssetSearchOptions): Paginated<AssetEntity>;
-  getAllByDeviceId(userId: string, deviceId: string): Promise<string[]>;
-  getAllForUserFullSync(options: AssetFullSyncOptions): Promise<AssetEntity[]>;
   getAssetsByOriginalPath(userId: string, partialPath: string): Promise<AssetEntity[]>;
-  getAssetIdByCity(userId: string, options: AssetExploreFieldOptions): Promise<SearchExploreItem<string>>;
-  getAssetIdByTag(userId: string, options: AssetExploreFieldOptions): Promise<SearchExploreItem<string>>;
-  getByAlbumId(pagination: PaginationOptions, albumId: string): Paginated<AssetEntity>;
-  getByChecksum(options: { ownerId: string; checksum: Buffer; libraryId?: string }): Promise<AssetEntity | null>;
-  getByChecksums(userId: string, checksums: Buffer[]): Promise<AssetEntity[]>;
-  getByDayOfYear(ownerIds: string[], monthDay: MonthDay): Promise<AssetEntity[]>;
-  getByDeviceIds(ownerId: string, deviceId: string, deviceAssetIds: string[]): Promise<string[]>;
-  getById(
-    id: string,
-    relations?: FindOptionsRelations<AssetEntity>,
-    order?: FindOptionsOrder<AssetEntity>,
-  ): Promise<AssetEntity | null>;
+  getUniqueOriginalPaths(userId: string): Promise<string[]>;
+  create(asset: AssetCreate): Promise<AssetEntity>;
   getByIds(
     ids: string[],
     relations?: FindOptionsRelations<AssetEntity>,
     select?: FindOptionsSelect<AssetEntity>,
   ): Promise<AssetEntity[]>;
   getByIdsWithAllRelations(ids: string[]): Promise<AssetEntity[]>;
-  getByLibraryIdAndOriginalPath(libraryId: string, originalPath: string): Promise<AssetEntity | null>;
+  getByDayOfYear(ownerIds: string[], monthDay: MonthDay): Promise<AssetEntity[]>;
+  getByChecksum(options: { ownerId: string; checksum: Buffer; libraryId?: string }): Promise<AssetEntity | null>;
+  getByChecksums(userId: string, checksums: Buffer[]): Promise<AssetEntity[]>;
+  getUploadAssetIdByChecksum(ownerId: string, checksum: Buffer): Promise<string | undefined>;
+  getByAlbumId(pagination: PaginationOptions, albumId: string): Paginated<AssetEntity>;
+  getByDeviceIds(ownerId: string, deviceId: string, deviceAssetIds: string[]): Promise<string[]>;
   getByUserId(pagination: PaginationOptions, userId: string, options?: AssetSearchOptions): Paginated<AssetEntity>;
-  getChangedDeltaSync(options: AssetDeltaSyncOptions): Promise<AssetEntity[]>;
-  getDuplicates(options: AssetBuilderOptions): Promise<AssetEntity[]>;
-  getExternalLibraryAssetPaths(pagination: PaginationOptions, libraryId: string): Paginated<AssetPathEntity>;
+  getById(
+    id: string,
+    relations?: FindOptionsRelations<AssetEntity>,
+    order?: FindOptionsOrder<AssetEntity>,
+  ): Promise<AssetEntity | null>;
+  getWithout(pagination: PaginationOptions, property: WithoutProperty): Paginated<AssetEntity>;
+  getWith(
+    pagination: PaginationOptions,
+    property: WithProperty,
+    libraryId?: string,
+    withDeleted?: boolean,
+  ): Paginated<AssetEntity>;
+  getRandom(userId: string, count: number): Promise<AssetEntity[]>;
   getFirstAssetForAlbumId(albumId: string): Promise<AssetEntity | null>;
   getLastUpdatedAssetForAlbumId(albumId: string): Promise<AssetEntity | null>;
+  getExternalLibraryAssetPaths(pagination: PaginationOptions, libraryId: string): Paginated<AssetPathEntity>;
+  getByLibraryIdAndOriginalPath(libraryId: string, originalPath: string): Promise<AssetEntity | null>;
+  deleteAll(ownerId: string): Promise<void>;
+  getAll(pagination: PaginationOptions, options?: AssetSearchOptions): Paginated<AssetEntity>;
+  getAllByDeviceId(userId: string, deviceId: string): Promise<string[]>;
   getLivePhotoCount(motionId: string): Promise<number>;
-  getRandom(userId: string, count: number): Promise<AssetEntity[]>;
-  getStatistics(ownerId: string, options: AssetStatsOptions): Promise<AssetStats>;
-  getTimeBucket(timeBucket: string, options: TimeBucketOptions): Promise<AssetEntity[]>;
-  getTimeBuckets(options: TimeBucketOptions): Promise<TimeBucketItem[]>;
-  getUniqueOriginalPaths(userId: string): Promise<string[]>;
-  getUploadAssetIdByChecksum(ownerId: string, checksum: Buffer): Promise<string | undefined>;
-  getWithout(pagination: PaginationOptions, property: WithoutProperty): Paginated<AssetEntity>;
-  getWith(pagination: PaginationOptions, property: WithProperty, libraryId?: string): Paginated<AssetEntity>;
-  remove(asset: AssetEntity): Promise<void>;
-  restoreAll(ids: string[]): Promise<void>;
-  softDeleteAll(ids: string[]): Promise<void>;
-  update(asset: AssetUpdateOptions): Promise<void>;
   updateAll(ids: string[], options: Partial<AssetUpdateAllOptions>): Promise<void>;
   updateDuplicates(options: AssetUpdateDuplicateOptions): Promise<void>;
+  update(asset: AssetUpdateOptions): Promise<void>;
+  remove(asset: AssetEntity): Promise<void>;
+  softDeleteAll(ids: string[]): Promise<void>;
+  restoreAll(ids: string[]): Promise<void>;
+  findLivePhotoMatch(options: LivePhotoSearchOptions): Promise<AssetEntity | null>;
+  getStatistics(ownerId: string, options: AssetStatsOptions): Promise<AssetStats>;
+  getTimeBuckets(options: TimeBucketOptions): Promise<TimeBucketItem[]>;
+  getTimeBucket(timeBucket: string, options: TimeBucketOptions): Promise<AssetEntity[]>;
   upsertExif(exif: Partial<ExifEntity>): Promise<void>;
-  upsertFile(options: { assetId: string; type: AssetFileType; path: string }): Promise<void>;
   upsertJobStatus(...jobStatus: Partial<AssetJobStatusEntity>[]): Promise<void>;
+  getAssetIdByCity(userId: string, options: AssetExploreFieldOptions): Promise<SearchExploreItem<string>>;
+  getAssetIdByTag(userId: string, options: AssetExploreFieldOptions): Promise<SearchExploreItem<string>>;
+  getDuplicates(options: AssetBuilderOptions): Promise<AssetEntity[]>;
+  getAllForUserFullSync(options: AssetFullSyncOptions): Promise<AssetEntity[]>;
+  getChangedDeltaSync(options: AssetDeltaSyncOptions): Promise<AssetEntity[]>;
+  upsertFile(options: { assetId: string; type: AssetFileType; path: string }): Promise<void>;
 }
