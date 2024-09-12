@@ -227,7 +227,7 @@ GROUP BY
 ORDER BY
   COUNT("face"."assetId") DESC
 LIMIT
-  20
+  500
 
 -- PersonRepository.getDistinctNames
 SELECT DISTINCT
