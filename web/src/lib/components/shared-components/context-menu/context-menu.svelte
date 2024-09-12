@@ -54,9 +54,9 @@
     aria-label={ariaLabel}
     aria-labelledby={ariaLabelledBy}
     bind:this={menuElement}
-    class="flex flex-col transition-all duration-[250ms] ease-in-out outline-none overflow-y-auto immich-scrollbar bg-slate-100 relative min-w-[200px] max-w-[200px] sm:max-w-[256px] rounded-lg {isVisible
-      ? `${direction === 'left' ? 'right-0' : 'left-0'} max-h-dvh`
-      : `${direction === 'left' ? 'right-[-120px]' : 'left-[-120px]'} max-h-0`}"
+    class="flex flex-col transition-all duration-[250ms] ease-in-out outline-none immich-scrollbar bg-slate-100 relative min-w-[200px] max-w-[200px] sm:max-w-[256px] rounded-lg {isVisible
+      ? 'translate-x-0 max-h-dvh overflow-y-auto'
+      : `${direction === 'left' ? 'translate-x-28' : '-translate-x-28'} max-h-0 overflow-y-hidden`}"
     role="menu"
     tabindex="-1"
   >
