@@ -191,7 +191,7 @@ export class PersonRepository implements IPersonRepository {
       )
       .groupBy('person.id')
       .orderBy('COUNT(face.assetId)', 'DESC')
-      .limit(20);
+      .limit(500);
 
     if (!withHidden) {
       queryBuilder.andWhere('person.isHidden = false');
