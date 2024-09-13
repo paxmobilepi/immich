@@ -134,7 +134,7 @@
     "map_reverse_geocoding": "ประมวลผลชื่อทางภูมิศาสตร์",
     "map_reverse_geocoding_enable_description": "เปิดใช้งานประมวลผลชื่อทางภูมิศาสตร์",
     "map_reverse_geocoding_settings": "การตั้งค่าประมวลผลชื่อทางภูมิศาสตร์",
-    "map_settings": "การตั้งค่าแผนที่",
+    "map_settings": "แผนที่",
     "map_settings_description": "จัดการการตั้งค่าแผนที่",
     "map_style_description": "URL ไปยังธีมแผนที่ style.json",
     "metadata_extraction_job": "ดึงข้อมูล metadata",
